@@ -1,35 +1,33 @@
 import React, {useState, useEffect} from 'react';
-import MapView, {Marker} from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import Map from './components/Map';
 
 export default function App() {
-  const [mapRegion, setMapRegion] = useState({
-    "latitude": 42.27726715190734, 
-    "latitudeDelta": 0.03415826961671797, 
-    "longitude": -83.73963831191361, 
-    "longitudeDelta": 0.023597393932092814
-  });
+  
   const userLocation = async() => {
     let { status } = await Location.requestForegroundPermissionsAysnc();
-    
+    if (status !== "granted"){
+      console.log("Permisson to access location was denied");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAysnc({});
+    console.log(locaiton);
+    setPin({
+      latitude: locaiton.coords.latitude,
+      longitude: location.coords.longitude,
+    });
   }
+
+  const points = [
+    { name: 'hi', id: 0, lat: 9.3, long: -4.5 },
+    { name: 'hi', lat: 9.3, long: -4.5 },
+    { name: 'hi', lat: 9.3, long: -4.5 },
+    { name: 'hi', lat: 9.3, long: -4.5 },
+  ];
+  
   return (
-    <View style={styles.container}>
-      <MapView style={styles.map}
-        region={mapRegion}
-      >
-        <Marker coordinate={mapRegion} title='Marker' />
-      </MapView>
-    </View>
-  );
+    <Map />
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
-});
+
