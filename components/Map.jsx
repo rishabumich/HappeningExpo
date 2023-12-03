@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import { StyleSheet, View } from 'react-native';
 
-const Map = () => {
+const Map = ({points}) => {
     const [mapRegion, setMapRegion] = useState({
         "latitude": 42.27726715190734, 
         "latitudeDelta": 0.03415826961671797, 
@@ -14,7 +14,7 @@ const Map = () => {
             <MapView style={styles.map}
             region={mapRegion}
             >
-            <Marker coordinate={mapRegion} title='Marker' />
+            {points.map((point, index) => (<Marker key={index} coordinate={point} title='Marker' />))}
             </MapView>
         </View>
     )
