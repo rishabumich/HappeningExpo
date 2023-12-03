@@ -11,9 +11,7 @@ const Map = ({points}) => {
       });
     return (
         <View style={styles.container}>
-            <MapView style={styles.map}
-            region={mapRegion}
-            >
+            <MapView style={styles.map} region={mapRegion}>
             {points.map((point, index) => (<Marker key={index} coordinate={point} title='Marker' />))}
             </MapView>
         </View>
