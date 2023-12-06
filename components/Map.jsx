@@ -1,34 +1,39 @@
 import React, {useState, useEffect} from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { supabase } from '../lib/supabase';
 
 const Map = () => {
 
-  const [mapRegion, setMapRegion] = useState(null);
-  ​
-    useEffect(() => {
-      const getUserLocation = async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          console.log('Permission to access location was denied');
-          return;
-        }
-  ​
-        let location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.High,
-        });
-  ​
-        setMapRegion({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.03415826961671797,
-          longitudeDelta: 0.023597393932092814,
-        });
-      };
-  ​
-      getUserLocation();
-    }, []);
+  const [mapRegion, setMapRegion] = useState({
+          latitude: 42.27726715190734,
+           longitude: -83.73963831191361,
+           latitudeDelta: 0.03415826961671797,
+           longitudeDelta: 0.023597393932092814,
+         });
+
+    // useEffect(() => {
+    //   const getUserLocation = async () => {
+    //     let { status } = await Location.requestForegroundPermissionsAsync();
+    //     if (status !== 'granted') {
+    //       console.log('Permission to access location was denied');
+    //       return;
+    //     }
+
+    //     let location = await Location.getCurrentPositionAsync({
+    //       accuracy: Location.Accuracy.High,
+    //     });
+
+    //     setMapRegion({
+    //       latitude: 42.27726715190734,
+    //       longitude: -83.73963831191361,
+    //       latitudeDelta: 0.03415826961671797,
+    //       longitudeDelta: 0.023597393932092814,
+    //     });
+    //   };
+
+    //   getUserLocation();
+    // }, []);
 
     // temporary code for displaying pins and adding pins
     const [eventLocations, setEventLocations] = useState([
@@ -60,12 +65,9 @@ const Map = () => {
             >
             {eventLocations.map((point, index) => (<Marker key={index} coordinate={point.coordinate} title={point.label} />))}
             <Marker
-            coordinate={{
-              latitude: mapRegion.latitude,
-              longitude: mapRegion.longitude,
-            }}
+            coordinate={mapRegion}
             anchor={{ x: 0.5, y: 0.5 }}
-          >
+            >
             <Image
               source={require('./LocationDot.png')}
               style={{ width: 20, height: 20 }}

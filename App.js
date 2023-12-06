@@ -4,7 +4,8 @@ import Map from './components/Map';
 import Drawer from './components/BottomDrawer';
 import {View} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-​export default function App() {
+
+export default function App() {
 
   const points = [
     {coordinate: {latitude: 42.27726715190734, longitude: -83.73963831191361}, label: "diag"},
