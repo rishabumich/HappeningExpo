@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import EventTable from './EventTable';
+import EventTable from './TableView';
 
 const Drawer = ({points}) => {
     // ref
@@ -26,7 +26,7 @@ const Drawer = ({points}) => {
           style={DrawerStyles.contentContainer}
         >
           <View style={DrawerStyles.contentContainer}>
-            <Text>Hello World!</Text>
+            <EventTable />
           </View>
         </BottomSheet>
       </React.Fragment>
@@ -36,7 +36,7 @@ const Drawer = ({points}) => {
 const DrawerStyles = StyleSheet.create( {
     appContainer: {
         width: '100%',
-        height: '30%'
+        height: '30%',
     },
     contentContainer: {
         flex: 1,
